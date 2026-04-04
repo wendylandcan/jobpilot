@@ -1,16 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand: #1E3A8A;
-  --color-brand-light: #2563EB;
-  --color-brand-lighter: #3B82F6;
-  --color-brand-dark: #172554;
-  --color-brand-muted: #1E40AF;
-  --color-brand-50: #EFF6FF;
-  --color-brand-100: #DBEAFE;
-  --color-surface: #F8FAFC;
-  --color-pku-law: #2563EB;
-  --color-firm-article: #059669;
+  /* ── Primary palette ── */
+  --color-brand: #1a365d;
+  --color-brand-light: #2b6cb0;
+  --color-brand-lighter: #4299e1;
+  --color-brand-dark: #1a202c;
+  --color-brand-muted: #2c5282;
+  --color-brand-50: #ebf8ff;
+  --color-brand-100: #bee3f8;
+  --color-surface: #f7fafc;
+
+  /* ── Semantic accents ── */
+  --color-pku-law: #3182ce;
+  --color-firm-article: #38a169;
 }
 
 * {
@@ -20,14 +23,15 @@
 }
 
 body {
-  font-family: "Inter", "PingFang SC", "Microsoft YaHei UI", "Roboto",
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-    Helvetica, Arial, sans-serif;
-  background-color: #F8FAFC;
-  color: #1E293B;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+    "PingFang SC", "Helvetica Neue", "Microsoft YaHei UI",
+    "Noto Sans SC", sans-serif;
+  background-color: #f7fafc;
+  color: #1a202c;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   letter-spacing: 0.01em;
 }
 
@@ -36,38 +40,45 @@ body {
   height: 100vh;
 }
 
-/* Custom scrollbar */
+/* ── Scrollbar ── */
 .custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
+  width: 3px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #E2E8F0;
+  background: #cbd5e0;
   border-radius: 10px;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #CBD5E1;
+  background: #a0aec0;
 }
 
-/* Citation highlight pulse */
+/* ── Citation highlight pulse ── */
 @keyframes highlight-pulse {
-  0%   { background-color: rgba(37, 99, 235, 0.15); }
-  30%  { background-color: rgba(37, 99, 235, 0.25); }
-  60%  { background-color: rgba(37, 99, 235, 0.15); }
+  0%   { background-color: rgba(49, 130, 206, 0.12); }
+  30%  { background-color: rgba(49, 130, 206, 0.22); }
+  60%  { background-color: rgba(49, 130, 206, 0.12); }
   100% { background-color: transparent; }
 }
 .highlight-pulse {
   animation: highlight-pulse 2s ease-out forwards;
 }
 
-/* Inline highlight mark for cited text */
+/* ── Inline highlight mark ── */
 mark.cite-highlight {
-  background-color: rgba(37, 99, 235, 0.12);
+  background-color: rgba(49, 130, 206, 0.10);
   color: inherit;
-  padding: 1px 2px;
+  padding: 1px 3px;
   border-radius: 3px;
-  border-bottom: 2px solid rgba(37, 99, 235, 0.4);
+  border-bottom: 2px solid rgba(49, 130, 206, 0.35);
   font-weight: 600;
+}
+
+/* ── Subtle glass effect ── */
+.glass {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
