@@ -19,12 +19,12 @@ import { ROLES } from '../data/mockData';
 function ModuleProgressBar({ config, moduleFields, moduleProgress, moduleTotalFields }) {
   const pct = moduleTotalFields ? (moduleProgress / moduleTotalFields) * 100 : 0;
   return (
-    <div className="px-5 py-2.5 bg-white/60 backdrop-blur-sm border-b border-gray-50">
+    <div className="px-5 py-2.5 bg-white/60 backdrop-blur-sm border-b border-gray-100">
       <div className="flex items-center justify-between mb-1.5">
-        <span className="text-[11px] font-medium text-gray-500">信息补全</span>
+        <span className="text-[11px] font-semibold text-gray-600">信息补全进度</span>
         <span className="text-[11px] font-bold text-brand">{Math.round(pct)}%</span>
       </div>
-      <div className="w-full h-1 bg-gray-100 rounded-full overflow-hidden">
+      <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
         <motion.div
           className="h-full bg-brand rounded-full"
           initial={{ width: 0 }}
@@ -96,8 +96,8 @@ function ReportCitationCard({ citation }) {
       animate={{ opacity: 1, y: 0, scale: isHighlighted ? 1.01 : 1 }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       className={`rounded-lg overflow-hidden cursor-pointer border relative
-        ${isHighlighted ? 'border-pku-law shadow-[0_0_0_1.5px_#3182ce,0_4px_12px_rgba(49,130,206,0.12)]' : 'border-transparent shadow-[0_1px_2px_rgba(0,0,0,0.03)]'}
-        ${isAuthoritative ? 'bg-blue-50/50' : 'bg-emerald-50/50'}`}
+        ${isHighlighted ? 'border-pku-law shadow-[0_0_0_2px_#2563EB,0_4px_12px_rgba(37,99,235,0.15)]' : 'border-transparent shadow-[0_1px_2px_rgba(0,0,0,0.04)]'}
+        ${isAuthoritative ? 'bg-blue-50/60' : 'bg-emerald-50/60'}`}
       onClick={(e) => { e.stopPropagation(); toggleCitationExpand(citation.id); }}
     >
       {isHighlighted && (
@@ -108,7 +108,7 @@ function ReportCitationCard({ citation }) {
           <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded text-white shrink-0 ${isAuthoritative ? 'bg-pku-law' : 'bg-firm-article'}`}>
             {citation.tag}
           </span>
-          <span className="text-[11px] font-medium text-gray-600 truncate">{citation.shortTitle}</span>
+          <span className="text-[11px] font-medium text-gray-700 truncate">{citation.shortTitle}</span>
         </div>
         <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.2 }}>
           <ChevronDown className="w-3 h-3 text-gray-400 shrink-0" />
@@ -125,7 +125,7 @@ function ReportCitationCard({ citation }) {
           >
             <div className="px-3 pb-2.5">
               <p className="text-[11px] font-semibold text-gray-800 mb-1.5">{citation.title}</p>
-              <div className={`p-2.5 rounded-md text-[11px] leading-relaxed text-gray-600 ${isAuthoritative ? 'bg-blue-100/40 border border-blue-200/50' : 'bg-emerald-100/40 border border-emerald-200/50'}`}>
+              <div className={`p-2.5 rounded-md text-[11px] leading-relaxed text-gray-600 ${isAuthoritative ? 'bg-blue-100/50 border border-blue-200/60' : 'bg-emerald-100/50 border border-emerald-200/60'}`}>
                 {renderHighlightedContent(citation.content, citation.highlightRange, isHighlighted)}
               </div>
               <div className="flex items-center justify-between mt-1.5 px-0.5">
@@ -151,14 +151,14 @@ function ReportStepItem({ step, totalSteps, onRefClick }) {
   const hasRefs = step.refIds && step.refIds.length > 0;
 
   return (
-    <motion.div initial={{ opacity: 0, x: 6 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: step.step * 0.05 }} className="flex gap-2">
+    <motion.div initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: step.step * 0.06 }} className="flex gap-2">
       <div className="flex flex-col items-center pt-0.5">
-        {isCompleted ? <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" /> : isActive ? (
-          <motion.div animate={{ scale: [1, 1.15, 1] }} transition={{ repeat: Infinity, duration: 1.5 }}>
-            <Circle className="w-3.5 h-3.5 text-brand shrink-0 fill-brand/20" />
+        {isCompleted ? <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" /> : isActive ? (
+          <motion.div animate={{ scale: [1, 1.2, 1] }} transition={{ repeat: Infinity, duration: 1.5 }}>
+            <Circle className="w-4 h-4 text-brand shrink-0 fill-brand/20" />
           </motion.div>
-        ) : <Circle className="w-3.5 h-3.5 text-gray-300 shrink-0" />}
-        {step.step < totalSteps && <div className={`w-px flex-1 mt-1 ${isCompleted ? 'bg-emerald-200' : 'bg-gray-100'}`} />}
+        ) : <Circle className="w-4 h-4 text-gray-300 shrink-0" />}
+        {step.step < totalSteps && <div className={`w-px flex-1 mt-1 ${isCompleted ? 'bg-emerald-200' : 'bg-gray-200'}`} />}
       </div>
       <div className="flex-1 pb-2">
         <button onClick={() => toggleStepExpand(step.step)} className="w-full flex items-center justify-between cursor-pointer rounded-md px-1.5 py-0.5 -ml-0.5 hover:bg-gray-50/80 transition-colors">
@@ -177,7 +177,7 @@ function ReportStepItem({ step, totalSteps, onRefClick }) {
                 <div className="flex items-center gap-1.5 mt-1.5 ml-1">
                   <span className="text-[10px] text-gray-400">引用</span>
                   {step.refIds.map((refId) => (
-                    <button key={refId} onClick={(e) => { e.stopPropagation(); onRefClick(refId); }} className="inline-flex items-center justify-center w-4.5 h-4.5 text-[9px] font-bold text-white bg-pku-law rounded-full cursor-pointer hover:bg-blue-700 hover:scale-110 transition-all">
+                    <button key={refId} onClick={(e) => { e.stopPropagation(); onRefClick(refId); }} className="inline-flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-pku-law rounded-full cursor-pointer hover:bg-blue-700 hover:scale-110 transition-all">
                       {refId}
                     </button>
                   ))}
@@ -200,7 +200,7 @@ function renderMarkdown(text) {
       return <li key={idx} className="ml-4 list-disc" dangerouslySetInnerHTML={{ __html: html }} />;
     }
     if (line.startsWith('> ')) {
-      return <blockquote key={idx} className="ml-3 pl-3 border-l-2 border-brand/20 text-gray-600 italic my-1">{line.slice(2)}</blockquote>;
+      return <blockquote key={idx} className="ml-3 pl-3 border-l-2 border-brand/30 text-gray-600 italic my-1">{line.slice(2)}</blockquote>;
     }
     const numMatch = line.match(/^(\d+)\.\s/);
     if (numMatch) {
@@ -309,6 +309,7 @@ export default function GuidedChat() {
     setMessages((prev) => [...prev, { id: Date.now(), role: 'user', content: text, timestamp: now() }]);
     setInputValue('');
 
+    // Parse input
     const updates = config.parseInput(text, moduleFields);
     let updated = false;
     for (const [field, value] of Object.entries(updates)) {
@@ -316,6 +317,7 @@ export default function GuidedChat() {
       updated = true;
     }
 
+    // If nothing was extracted, re-prompt
     if (!updated && !isAllComplete) {
       const nextMissing = config.requiredFields.find(
         (f) => moduleFields[f.key]?.status !== 'complete'
@@ -358,25 +360,26 @@ export default function GuidedChat() {
 
   if (!config) return null;
 
+  // Find next missing field for bottom-bar hint
   const nextMissing = config.requiredFields.find(
     (f) => moduleFields[f.key]?.status !== 'complete'
   );
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100">
+    <div className="flex flex-col h-full bg-white rounded-2xl shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-3 border-b border-gray-50 flex items-center justify-between">
+      <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <h2 className="text-sm font-semibold text-gray-900">{config.title}</h2>
+            <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <h2 className="text-sm font-semibold text-gray-900">正在进行：{config.title}</h2>
           </div>
-          <p className="text-[10px] text-gray-400 mt-0.5 ml-3.5">{config.persona} · {config.subtitle}</p>
+          <p className="text-[10px] text-gray-400 mt-0.5 ml-4">{config.persona} · {config.subtitle}</p>
         </div>
         <motion.button
           onClick={exitModule}
-          className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-[11px]
-            text-gray-400 hover:bg-gray-50 hover:text-gray-600 transition-colors cursor-pointer"
+          className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-[11px]
+            text-gray-500 hover:bg-gray-100 transition-colors cursor-pointer"
           whileTap={{ scale: 0.95 }}
         >
           <X className="w-3.5 h-3.5" />
@@ -403,17 +406,17 @@ export default function GuidedChat() {
           return (
             <motion.div
               key={msg.id}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               className={`flex gap-2.5 ${isAI ? '' : 'flex-row-reverse'}`}
             >
               <div
-                className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-1
-                  ${isAI ? 'bg-brand text-white' : 'bg-gray-100 text-gray-500'}`}
+                className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-1
+                  ${isAI ? 'bg-brand text-white' : 'bg-gray-200 text-gray-600'}`}
               >
-                {isAI ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
+                {isAI ? <Bot className="w-4.5 h-4.5" /> : <User className="w-4.5 h-4.5" />}
               </div>
-              <div className={`max-w-[min(85%,660px)] ${isAI ? '' : 'text-right'}`}>
+              <div className={`max-w-[min(85%,680px)] ${isAI ? '' : 'text-right'}`}>
                 <GuidedBubble
                   msg={msg}
                   isAI={isAI}
@@ -432,7 +435,7 @@ export default function GuidedChat() {
       </div>
 
       {/* Bottom bar hint */}
-      <div className="px-5 py-2 bg-white border-t border-gray-50">
+      <div className="px-5 py-2.5 bg-white border-t border-gray-100">
         <div className="flex items-center gap-2 overflow-x-auto pb-0.5">
           {!isAllComplete && nextMissing && (
             <>
@@ -442,11 +445,11 @@ export default function GuidedChat() {
               {nextMissing.chips && nextMissing.chips.slice(0, 3).map((chip) => (
                 <motion.button
                   key={chip}
-                  className="shrink-0 px-2.5 py-1 text-[11px] font-medium rounded-full
-                    bg-gray-50 border border-gray-100 text-gray-500
-                    hover:border-brand/30 hover:text-brand hover:bg-brand-50/30
+                  className="shrink-0 px-3 py-1.5 text-[11px] font-medium rounded-full
+                    bg-gray-50 border border-gray-200 text-gray-600
+                    hover:border-brand/40 hover:text-brand hover:bg-brand/5
                     transition-all duration-200 cursor-pointer"
-                  whileHover={{ scale: 1.03 }}
+                  whileHover={{ scale: 1.04, y: -1 }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => handleChipClick(nextMissing.key, chip)}
                 >
@@ -455,11 +458,11 @@ export default function GuidedChat() {
               ))}
               {!nextMissing.chips && (
                 <motion.button
-                  className="shrink-0 px-2.5 py-1 text-[11px] font-medium rounded-full
-                    bg-gray-50 border border-gray-100 text-gray-500
-                    hover:border-brand/30 hover:text-brand hover:bg-brand-50/30
+                  className="shrink-0 px-3 py-1.5 text-[11px] font-medium rounded-full
+                    bg-gray-50 border border-gray-200 text-gray-600
+                    hover:border-brand/40 hover:text-brand hover:bg-brand/5
                     transition-all duration-200 cursor-pointer"
-                  whileHover={{ scale: 1.03 }}
+                  whileHover={{ scale: 1.04, y: -1 }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => setInputValue(nextMissing.label + '：')}
                 >
@@ -478,7 +481,7 @@ export default function GuidedChat() {
       </div>
 
       {/* Input */}
-      <div className="px-4 py-3 bg-white border-t border-gray-100">
+      <div className="px-4 py-3 bg-white border-t border-gray-200">
         <div className="flex items-end gap-2">
           <div className="flex-1 relative">
             <textarea
@@ -492,19 +495,19 @@ export default function GuidedChat() {
               }}
               placeholder={nextMissing ? `请输入${nextMissing.label}...` : '输入补充信息...'}
               rows={1}
-              className="w-full resize-none rounded-lg border border-gray-200 px-3.5 py-2
-                text-[13px] focus:outline-none focus:border-brand/40 focus:ring-1 focus:ring-brand/10
+              className="w-full resize-none rounded-xl border border-gray-200 px-4 py-2.5
+                text-sm focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10
                 placeholder:text-gray-400"
             />
           </div>
           <motion.button
             onClick={handleSend}
-            className={`w-8 h-8 rounded-lg ${roleConfig.bgClass} text-white
-              flex items-center justify-center cursor-pointer`}
+            className={`w-9 h-9 rounded-xl ${roleConfig.bgClass} text-white
+              flex items-center justify-center cursor-pointer shadow-sm`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-4 h-4" />
           </motion.button>
         </div>
       </div>
@@ -519,29 +522,31 @@ function GuidedBubble({ msg, isAI, hasDetail, hasAnalysis, hasCitations, onChipC
   return (
     <>
       <div
-        className={`rounded-2xl px-4 py-3 text-[13px] leading-relaxed
-          ${isAI ? 'bg-white border border-gray-100 text-gray-700' : 'bg-brand text-white'}`}
+        className={`rounded-2xl px-4 py-3 text-sm leading-relaxed
+          ${isAI ? 'bg-white border border-gray-100 shadow-sm text-gray-700' : 'bg-brand text-white'}`}
       >
         {renderMarkdown(msg.content)}
 
+        {/* Detail toggle */}
         {hasDetail && (
           <button
             onClick={() => setDetailOpen((v) => !v)}
-            className="mt-3 flex items-center gap-1 text-[11px] text-brand/60 hover:text-brand
+            className="mt-3 flex items-center gap-1 text-xs text-brand/70 hover:text-brand
               font-medium cursor-pointer transition-colors"
           >
-            <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${detailOpen ? 'rotate-180' : ''}`} />
-            {detailOpen ? '收起' : '查看详情'}
+            <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${detailOpen ? 'rotate-180' : ''}`} />
+            {detailOpen ? '收起分析' : '查看详情'}
           </button>
         )}
 
+        {/* Analysis Steps */}
         <AnimatePresence>
           {hasAnalysis && detailOpen && (
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
-              <div className="mt-3 pt-3 border-t border-gray-50">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <div className="w-1 h-1 rounded-full bg-brand" />
-                  <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">推导步骤</p>
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                <div className="flex items-center gap-1.5 mb-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-brand" />
+                  <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">逻辑推导步骤</p>
                 </div>
                 <div className="ml-0.5">
                   {msg.analysisSteps.map((step) => (
@@ -553,12 +558,13 @@ function GuidedBubble({ msg, isAI, hasDetail, hasAnalysis, hasCitations, onChipC
           )}
         </AnimatePresence>
 
+        {/* Citation Cards */}
         <AnimatePresence>
           {hasCitations && detailOpen && (
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }} className="overflow-hidden">
-              <div className="mt-3 pt-3 border-t border-gray-50">
-                <div className="flex items-center gap-1.5 mb-2">
-                  <div className="w-1 h-1 rounded-full bg-pku-law" />
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                <div className="flex items-center gap-1.5 mb-2.5">
+                  <div className="w-1.5 h-1.5 rounded-full bg-pku-law" />
                   <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">引用溯源</p>
                 </div>
                 <div className="space-y-1.5">
@@ -572,15 +578,16 @@ function GuidedBubble({ msg, isAI, hasDetail, hasAnalysis, hasCitations, onChipC
         </AnimatePresence>
       </div>
 
+      {/* Quick Reply Chips — below the bubble */}
       {isAI && msg.chips && msg.chips.length > 0 && (
         <div className="flex flex-wrap gap-1.5 mt-2">
           {msg.chips.map((chip) => (
             <motion.button
               key={chip}
-              className="px-3 py-1.5 text-[11px] font-medium border border-gray-200 text-gray-600
-                bg-white rounded-full hover:border-brand/30 hover:text-brand hover:bg-brand-50/30
-                transition-all duration-200 cursor-pointer"
-              whileHover={{ scale: 1.02 }}
+              className="px-3 py-1.5 text-xs font-medium border border-brand/20 text-brand
+                bg-white rounded-full hover:bg-brand hover:text-white
+                transition-all duration-200 cursor-pointer shadow-sm"
+              whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={() => onChipClick(msg.chipField, chip)}
             >

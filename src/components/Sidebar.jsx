@@ -11,7 +11,6 @@ import {
   Scale,
   FileSearch,
   Clock,
-  Plus,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { ROLES, HISTORY_ITEMS } from '../data/mockData';
@@ -45,41 +44,28 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="w-full h-full flex flex-col bg-white border-r border-gray-100">
+    <aside className="w-full h-full flex flex-col bg-white border-r border-gray-200/80">
       {/* Brand */}
-      <div className="px-5 py-4 border-b border-gray-50">
+      <div className="px-5 py-4 border-b border-gray-100">
         <div className="flex items-center gap-2.5">
           <div
-            className={`w-8 h-8 rounded-lg ${roleConfig.bgClass} flex items-center justify-center`}
+            className={`w-9 h-9 rounded-xl ${roleConfig.bgClass} flex items-center justify-center shadow-sm`}
           >
-            <Briefcase className="w-4 h-4 text-white" strokeWidth={1.6} />
+            <Briefcase className="w-5 h-5 text-white" strokeWidth={1.6} />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-gray-900 tracking-tight leading-tight">
-              职引 <span className="font-light text-gray-300">JobPilot</span>
+            <h1 className="text-base font-bold text-gray-900 tracking-tight">
+              职引 <span className="font-light">JobPilot</span>
             </h1>
             <p className="text-[10px] text-gray-400 -mt-0.5">AI 劳动法律顾问</p>
           </div>
         </div>
       </div>
 
-      {/* New Chat */}
-      <div className="px-4 pt-4 pb-1">
-        <button
-          className="w-full flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg
-            border border-dashed border-gray-200 text-xs text-gray-400
-            hover:border-gray-300 hover:text-gray-500 hover:bg-gray-50/50
-            transition-colors cursor-pointer"
-        >
-          <Plus className="w-3.5 h-3.5" />
-          新建咨询
-        </button>
-      </div>
-
       {/* Core Modules */}
-      <div className="px-4 pt-4 pb-2 flex-1">
-        <p className="text-[10px] font-medium text-gray-400 uppercase tracking-widest mb-2.5 px-1">
-          {roleConfig.label} · 工具
+      <div className="px-4 pt-5 pb-2 flex-1">
+        <p className="text-[11px] font-medium text-gray-400 uppercase tracking-wider mb-3 px-1">
+          {roleConfig.label} · 核心模块
         </p>
         <nav className="space-y-0.5">
           {navItems.map((item) => {
@@ -88,19 +74,19 @@ export default function Sidebar() {
               <motion.button
                 key={item.moduleKey}
                 onClick={() => handleNavClick(item.moduleKey)}
-                className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium
-                  transition-all cursor-pointer
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium
+                  transition-colors cursor-pointer
                   ${isActive
-                    ? `${roleConfig.bgClass} text-white shadow-sm`
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'
+                    ? `${roleConfig.bgClass} text-white`
+                    : 'text-gray-700 hover:bg-gray-50'
                   }`}
+                whileHover={{ x: 2 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <item.icon
-                  className={`w-4 h-4 ${isActive ? 'text-white' : 'text-gray-400'}`}
-                  strokeWidth={1.6}
+                  className={`w-4.5 h-4.5 ${isActive ? 'text-white' : roleConfig.textClass}`}
                 />
-                <span className="text-left truncate">{item.label}</span>
+                <span className="text-left">{item.label}</span>
               </motion.button>
             );
           })}
@@ -108,22 +94,22 @@ export default function Sidebar() {
       </div>
 
       {/* Collapsible History */}
-      <div className="border-t border-gray-50">
+      <div className="border-t border-gray-100">
         <button
           onClick={() => setShowHistory(!showHistory)}
-          className="w-full flex items-center justify-between px-5 py-2.5 text-[10px]
-            font-medium text-gray-400 uppercase tracking-widest hover:bg-gray-50/50
+          className="w-full flex items-center justify-between px-5 py-3 text-[11px]
+            font-medium text-gray-400 uppercase tracking-wider hover:bg-gray-50
             transition-colors cursor-pointer"
         >
           <div className="flex items-center gap-1.5">
-            <Clock className="w-3 h-3" />
-            <span>历史</span>
-            <span className="text-[9px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full normal-case ml-0.5">
+            <Clock className="w-3.5 h-3.5" />
+            <span>历史咨询</span>
+            <span className="text-[10px] bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded-full normal-case">
               {HISTORY_ITEMS.length}
             </span>
           </div>
           <motion.div animate={{ rotate: showHistory ? 180 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronDown className="w-3 h-3" />
+            <ChevronDown className="w-3.5 h-3.5" />
           </motion.div>
         </button>
         <AnimatePresence>
@@ -135,14 +121,15 @@ export default function Sidebar() {
               transition={{ duration: 0.2 }}
               className="overflow-hidden"
             >
-              <div className="px-4 pb-3 space-y-0.5 max-h-40 overflow-y-auto custom-scrollbar">
+              <div className="px-4 pb-3 space-y-1 max-h-40 overflow-y-auto custom-scrollbar">
                 {HISTORY_ITEMS.map((item) => (
                   <motion.div
                     key={item.id}
                     className="px-3 py-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors group"
+                    whileHover={{ x: 2 }}
                   >
                     <div className="flex items-center justify-between">
-                      <p className="text-[12px] text-gray-600 font-medium truncate pr-2 group-hover:text-gray-800">
+                      <p className="text-xs text-gray-600 font-medium truncate pr-2 group-hover:text-gray-800">
                         {item.title}
                       </p>
                       <MessageSquareText className="w-3 h-3 text-gray-300 shrink-0" />
@@ -152,8 +139,8 @@ export default function Sidebar() {
                       <span
                         className={`text-[9px] px-1.5 py-0.5 rounded-full ${
                           item.status === '进行中'
-                            ? 'bg-amber-50 text-amber-500'
-                            : 'bg-gray-50 text-gray-400'
+                            ? 'bg-amber-50 text-amber-600'
+                            : 'bg-gray-100 text-gray-400'
                         }`}
                       >
                         {item.status}
@@ -168,8 +155,10 @@ export default function Sidebar() {
       </div>
 
       {/* Footer */}
-      <div className="px-5 py-2 border-t border-gray-50">
-        <p className="text-[10px] text-gray-300 text-center">v1.0</p>
+      <div className="px-5 py-2.5 border-t border-gray-100">
+        <p className="text-[10px] text-gray-300 text-center">
+          职引 JobPilot v1.0 · Web Demo
+        </p>
       </div>
     </aside>
   );

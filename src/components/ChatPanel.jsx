@@ -24,25 +24,25 @@ const PHASES = [
 
 function PhaseBar({ currentPhase }) {
   return (
-    <div className="flex items-center gap-0 px-5 py-2 bg-white/60 backdrop-blur-sm border-b border-gray-50">
+    <div className="flex items-center gap-0 px-5 py-2.5 bg-white/60 backdrop-blur-sm border-b border-gray-100">
       {PHASES.map((phase, idx) => (
         <div key={phase.key} className="flex items-center flex-1">
-          <div className="flex items-center gap-1.5 flex-1">
+          <div className="flex items-center gap-2 flex-1">
             <div
-              className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-semibold
+              className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold
                 ${
                   idx < currentPhase
                     ? 'bg-emerald-500 text-white'
                     : idx === currentPhase
                       ? 'bg-brand text-white'
-                      : 'bg-gray-100 text-gray-400'
+                      : 'bg-gray-200 text-gray-400'
                 }`}
             >
               {idx < currentPhase ? '✓' : idx + 1}
             </div>
             <span
               className={`text-[11px] font-medium ${
-                idx <= currentPhase ? 'text-gray-600' : 'text-gray-400'
+                idx <= currentPhase ? 'text-gray-700' : 'text-gray-400'
               }`}
             >
               {phase.label}
@@ -51,7 +51,7 @@ function PhaseBar({ currentPhase }) {
           {idx < PHASES.length - 1 && (
             <div
               className={`h-px flex-1 mx-2 ${
-                idx < currentPhase ? 'bg-emerald-200' : 'bg-gray-100'
+                idx < currentPhase ? 'bg-emerald-300' : 'bg-gray-200'
               }`}
             />
           )}
@@ -71,29 +71,29 @@ function InlineStepItem({ step, totalSteps, onRefClick }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 6 }}
+      initial={{ opacity: 0, x: 8 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ delay: step.step * 0.05 }}
+      transition={{ delay: step.step * 0.06 }}
       className="flex gap-2"
     >
       {/* Timeline dot + line */}
       <div className="flex flex-col items-center pt-0.5">
         {isCompleted ? (
-          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+          <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
         ) : isActive ? (
           <motion.div
-            animate={{ scale: [1, 1.15, 1] }}
+            animate={{ scale: [1, 1.2, 1] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
           >
-            <Circle className="w-3.5 h-3.5 text-brand shrink-0 fill-brand/20" />
+            <Circle className="w-4 h-4 text-brand shrink-0 fill-brand/20" />
           </motion.div>
         ) : (
-          <Circle className="w-3.5 h-3.5 text-gray-300 shrink-0" />
+          <Circle className="w-4 h-4 text-gray-300 shrink-0" />
         )}
         {step.step < totalSteps && (
           <div
             className={`w-px flex-1 mt-1 ${
-              isCompleted ? 'bg-emerald-200' : 'bg-gray-100'
+              isCompleted ? 'bg-emerald-200' : 'bg-gray-200'
             }`}
           />
         )}
@@ -142,7 +142,7 @@ function InlineStepItem({ step, totalSteps, onRefClick }) {
                         e.stopPropagation();
                         onRefClick(refId);
                       }}
-                      className="inline-flex items-center justify-center w-4.5 h-4.5 text-[9px]
+                      className="inline-flex items-center justify-center w-5 h-5 text-[10px]
                         font-bold text-white bg-pku-law rounded-full cursor-pointer
                         hover:bg-blue-700 hover:scale-110 transition-all"
                     >
@@ -205,8 +205,8 @@ function InlineCitationCard({ citation }) {
       }}
       transition={{ type: 'spring', stiffness: 300, damping: 25 }}
       className={`rounded-lg overflow-hidden cursor-pointer border relative
-        ${isHighlighted ? 'border-pku-law shadow-[0_0_0_1.5px_#3182ce,0_4px_12px_rgba(49,130,206,0.12)]' : 'border-transparent shadow-[0_1px_2px_rgba(0,0,0,0.03)]'}
-        ${isAuthoritative ? 'bg-blue-50/50' : 'bg-emerald-50/50'}`}
+        ${isHighlighted ? 'border-pku-law shadow-[0_0_0_2px_#2563EB,0_4px_12px_rgba(37,99,235,0.15)]' : 'border-transparent shadow-[0_1px_2px_rgba(0,0,0,0.04)]'}
+        ${isAuthoritative ? 'bg-blue-50/60' : 'bg-emerald-50/60'}`}
       onClick={(e) => {
         e.stopPropagation();
         toggleCitationExpand(citation.id);
@@ -229,7 +229,7 @@ function InlineCitationCard({ citation }) {
           >
             {citation.tag}
           </span>
-          <span className="text-[11px] font-medium text-gray-600 truncate">
+          <span className="text-[11px] font-medium text-gray-700 truncate">
             {citation.shortTitle}
           </span>
         </div>
@@ -255,7 +255,7 @@ function InlineCitationCard({ citation }) {
               <p className="text-[11px] font-semibold text-gray-800 mb-1.5">{citation.title}</p>
               <div
                 className={`p-2.5 rounded-md text-[11px] leading-relaxed text-gray-600
-                  ${isAuthoritative ? 'bg-blue-100/40 border border-blue-200/50' : 'bg-emerald-100/40 border border-emerald-200/50'}`}
+                  ${isAuthoritative ? 'bg-blue-100/50 border border-blue-200/60' : 'bg-emerald-100/50 border border-emerald-200/60'}`}
               >
                 {renderHighlightedContent(citation.content, citation.highlightRange, isHighlighted)}
               </div>
@@ -301,7 +301,7 @@ function ChatBubble({ message, onCitationClick }) {
               e.stopPropagation();
               onCitationClick(refNum);
             }}
-            className="inline-flex items-center justify-center w-4.5 h-4.5 mx-0.5 text-[9px]
+            className="inline-flex items-center justify-center w-5 h-5 mx-0.5 text-[10px]
               font-bold text-white bg-pku-law rounded-full cursor-pointer
               hover:bg-blue-700 hover:scale-110 transition-all align-super"
           >
@@ -352,22 +352,22 @@ function ChatBubble({ message, onCitationClick }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       className={`flex gap-2.5 ${isAI ? '' : 'flex-row-reverse'}`}
     >
       <div
-        className={`w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-1
-          ${isAI ? 'bg-brand text-white' : 'bg-gray-100 text-gray-500'}`}
+        className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mt-1
+          ${isAI ? 'bg-brand text-white' : 'bg-gray-200 text-gray-600'}`}
       >
-        {isAI ? <Bot className="w-4 h-4" /> : <User className="w-4 h-4" />}
+        {isAI ? <Bot className="w-4.5 h-4.5" /> : <User className="w-4.5 h-4.5" />}
       </div>
-      <div className={`max-w-[min(85%,660px)] ${isAI ? '' : 'text-right'}`}>
+      <div className={`max-w-[min(85%,680px)] ${isAI ? '' : 'text-right'}`}>
         <div
-          className={`rounded-2xl px-4 py-3 text-[13px] leading-relaxed
+          className={`rounded-2xl px-4 py-3 text-sm leading-relaxed
             ${
               isAI
-                ? 'bg-white border border-gray-100 text-gray-700'
+                ? 'bg-white border border-gray-100 shadow-sm text-gray-700'
                 : 'bg-brand text-white'
             }`}
         >
@@ -377,11 +377,11 @@ function ChatBubble({ message, onCitationClick }) {
           {hasDetail && (
             <button
               onClick={() => setDetailOpen((v) => !v)}
-              className="mt-3 flex items-center gap-1 text-[11px] text-brand/60 hover:text-brand
+              className="mt-3 flex items-center gap-1 text-xs text-brand/70 hover:text-brand
                 font-medium cursor-pointer transition-colors"
             >
-              <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${detailOpen ? 'rotate-180' : ''}`} />
-              {detailOpen ? '收起' : '查看详情'}
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${detailOpen ? 'rotate-180' : ''}`} />
+              {detailOpen ? '收起分析' : '查看详情'}
             </button>
           )}
 
@@ -395,11 +395,11 @@ function ChatBubble({ message, onCitationClick }) {
                 transition={{ duration: 0.25 }}
                 className="overflow-hidden"
               >
-                <div className="mt-3 pt-3 border-t border-gray-50">
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <div className="w-1 h-1 rounded-full bg-brand" />
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <div className="flex items-center gap-1.5 mb-2.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-brand" />
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
-                      推导步骤
+                      逻辑推导步骤
                     </p>
                   </div>
                   <div className="ml-0.5">
@@ -427,9 +427,9 @@ function ChatBubble({ message, onCitationClick }) {
                 transition={{ duration: 0.25 }}
                 className="overflow-hidden"
               >
-                <div className="mt-3 pt-3 border-t border-gray-50">
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <div className="w-1 h-1 rounded-full bg-pku-law" />
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <div className="flex items-center gap-1.5 mb-2.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-pku-law" />
                     <p className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
                       引用溯源
                     </p>
@@ -452,10 +452,10 @@ function ChatBubble({ message, onCitationClick }) {
             {message.followUpOptions.map((opt) => (
               <motion.button
                 key={opt}
-                className="px-3 py-1.5 text-[11px] font-medium border border-gray-200 text-gray-600
-                  bg-white rounded-full hover:border-brand/30 hover:text-brand hover:bg-brand-50/30
-                  transition-all duration-200 cursor-pointer"
-                whileHover={{ scale: 1.02 }}
+                className="px-3 py-1.5 text-xs font-medium border border-brand/20 text-brand
+                  bg-white rounded-full hover:bg-brand hover:text-white
+                  transition-all duration-200 cursor-pointer shadow-sm"
+                whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
               >
                 {opt}
@@ -487,6 +487,7 @@ function NormalChatPanel() {
   const allChips = GUIDE_CHIPS[currentRole];
   const greeting = ROLE_GREETINGS[currentRole];
 
+  // Keyword patterns that indicate a chip's info has been mentioned
   const CHIP_KEYWORDS = {
     '入职时间': ['入职', '工作.*年', '干了.*年', '去年.*月', '今年.*月', '\\d+年'],
     '所在城市': ['北京', '上海', '广州', '深圳', '杭州', '成都', '城市', '在.*工作'],
@@ -517,6 +518,7 @@ function NormalChatPanel() {
   const messagesEndRef = useRef(null);
   const prevRoleRef = useRef(currentRole);
 
+  // Reset messages when role changes
   useEffect(() => {
     if (currentRole !== prevRoleRef.current) {
       const g = ROLE_GREETINGS[currentRole];
@@ -537,6 +539,7 @@ function NormalChatPanel() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
+  // Filter out chips whose info has already been mentioned in user messages
   const chips = useMemo(() => {
     const userText = messages
       .filter((m) => m.role === 'user')
@@ -569,6 +572,7 @@ function NormalChatPanel() {
 
   const handleCitationClick = (refId) => {
     highlightCitation(refId);
+    // Scroll to the inline citation card within the chat scroll container
     setTimeout(() => {
       const el = document.getElementById(`citation-${refId}`);
       el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -576,24 +580,24 @@ function NormalChatPanel() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100">
-      {/* Header */}
-      <div className="px-5 py-3 border-b border-gray-50 flex items-center justify-between">
+    <div className="flex flex-col h-full bg-white rounded-2xl shadow-sm overflow-hidden">
+      {/* Header with role switch */}
+      <div className="px-5 py-3 border-b border-gray-100 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold text-gray-900">智能法律咨询</h2>
-          <p className="text-[10px] text-gray-400 mt-0.5">
+          <p className="text-[11px] text-gray-400 mt-0.5">
             当前身份：{roleConfig.label}
           </p>
         </div>
         <motion.button
           onClick={goToWelcome}
           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px]
-            text-gray-400 hover:bg-gray-50 hover:text-gray-600 transition-colors cursor-pointer"
+            text-gray-500 hover:bg-gray-100 transition-colors cursor-pointer"
           whileTap={{ scale: 0.95 }}
           title="切换身份"
         >
           <ArrowLeftRight className="w-3.5 h-3.5" />
-          切换
+          切换身份
         </motion.button>
       </div>
 
@@ -622,9 +626,9 @@ function NormalChatPanel() {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="px-5 py-2 bg-white border-t border-gray-50">
+            <div className="px-5 py-2.5 bg-white border-t border-gray-100">
               <div className="flex items-center gap-2 overflow-x-auto pb-0.5">
-                <span className="text-[10px] text-gray-400 shrink-0 font-medium">补充</span>
+                <span className="text-[10px] text-gray-400 shrink-0 font-medium">补全信息</span>
                 <AnimatePresence mode="popLayout">
                   {chips.map((chip) => (
                     <motion.button
@@ -634,11 +638,11 @@ function NormalChatPanel() {
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.8 }}
                       transition={{ duration: 0.2 }}
-                      className={`shrink-0 px-2.5 py-1 text-[11px] font-medium rounded-full
-                        bg-gray-50 border border-gray-100 text-gray-500
-                        hover:border-brand/30 hover:text-brand hover:bg-brand-50/30
+                      className={`shrink-0 px-3 py-1.5 text-[11px] font-medium rounded-full
+                        bg-gray-50 border border-gray-200 text-gray-600
+                        hover:border-brand/40 hover:text-brand hover:bg-brand/5
                         transition-colors duration-200 cursor-pointer`}
-                      whileHover={{ scale: 1.03 }}
+                      whileHover={{ scale: 1.04, y: -1 }}
                       whileTap={{ scale: 0.96 }}
                       onClick={() => setInputValue((v) => (v ? v + '，' : '') + chip + '：')}
                     >
@@ -653,24 +657,26 @@ function NormalChatPanel() {
       </AnimatePresence>
 
       {/* Input */}
-      <div className="px-4 py-3 bg-white border-t border-gray-100">
+      <div className="px-4 py-3 bg-white border-t border-gray-200">
         <div className="flex items-end gap-2">
-          <div className="flex gap-1">
+          <div className="flex gap-1.5">
             <motion.button
-              className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center
-                text-gray-400 hover:bg-gray-100 hover:text-gray-500 transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center
+                text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-pointer"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title="上传附件"
             >
-              <Paperclip className="w-3.5 h-3.5" />
+              <Paperclip className="w-4 h-4" />
             </motion.button>
             <motion.button
-              className="w-8 h-8 rounded-lg bg-gray-50 flex items-center justify-center
-                text-gray-400 hover:bg-gray-100 hover:text-gray-500 transition-colors cursor-pointer"
+              className="w-9 h-9 rounded-xl bg-gray-50 border border-gray-200 flex items-center justify-center
+                text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors cursor-pointer"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title="上传图片"
             >
-              <ImagePlus className="w-3.5 h-3.5" />
+              <ImagePlus className="w-4 h-4" />
             </motion.button>
           </div>
           <div className="flex-1 relative">
@@ -685,19 +691,19 @@ function NormalChatPanel() {
               }}
               placeholder="描述您的劳动法律问题..."
               rows={1}
-              className="w-full resize-none rounded-lg border border-gray-200 px-3.5 py-2
-                text-[13px] focus:outline-none focus:border-brand/40 focus:ring-1 focus:ring-brand/10
+              className="w-full resize-none rounded-xl border border-gray-200 px-4 py-2.5
+                text-sm focus:outline-none focus:border-brand/50 focus:ring-2 focus:ring-brand/10
                 placeholder:text-gray-400"
             />
           </div>
           <motion.button
             onClick={handleSend}
-            className={`w-8 h-8 rounded-lg ${roleConfig.bgClass} text-white
-              flex items-center justify-center cursor-pointer`}
+            className={`w-9 h-9 rounded-xl ${roleConfig.bgClass} text-white
+              flex items-center justify-center cursor-pointer shadow-sm`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-4 h-4" />
           </motion.button>
         </div>
       </div>

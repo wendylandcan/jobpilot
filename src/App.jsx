@@ -26,15 +26,15 @@ function AppContent() {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="flex h-screen w-screen overflow-hidden bg-gray-50"
+          className="flex h-screen w-screen overflow-hidden bg-[#F0F2F5]"
         >
           {/* Left Sidebar */}
-          <div className="w-[240px] min-w-[220px] h-full shrink-0">
+          <div className="w-[20%] min-w-[220px] h-full">
             <Sidebar />
           </div>
 
           {/* Chat Panel — full remaining width */}
-          <div className="flex-1 h-full p-2">
+          <div className="flex-1 h-full mx-1.5">
             <ChatPanel />
           </div>
         </motion.div>
