@@ -58,7 +58,7 @@ export default function WelcomePage() {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center mb-16"
+        className="text-center mb-12"
       >
         <div className="flex items-center justify-center gap-3 mb-3">
           <div className="w-10 h-10 rounded-xl bg-brand flex items-center justify-center shadow-sm shadow-brand/20">
@@ -79,7 +79,7 @@ export default function WelcomePage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="text-[15px] text-slate-500 mb-10 tracking-wide"
+        className="text-[15px] text-slate-500 mb-8 tracking-wide"
       >
         选择您的身份，开始专属咨询
       </motion.p>
@@ -89,7 +89,7 @@ export default function WelcomePage() {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex gap-5 px-6 max-w-[720px] w-full"
+        className="flex gap-6 px-6 max-w-[780px] w-full"
       >
         {ROLE_CARDS.map((card) => {
           const isLoading = loadingRole === card.key;
@@ -103,7 +103,7 @@ export default function WelcomePage() {
               className={`flex-1 ${isDisabled ? 'pointer-events-none opacity-30' : 'cursor-pointer'}`}
             >
               <div
-                className={`group relative bg-white rounded-2xl px-6 py-8
+                className={`group relative bg-white rounded-2xl px-7 py-9
                   flex flex-col items-center text-center
                   border transition-all duration-300
                   ${isLoading
@@ -113,7 +113,7 @@ export default function WelcomePage() {
               >
                 {/* Icon */}
                 <div
-                  className={`w-12 h-12 rounded-xl flex items-center justify-center
+                  className={`w-14 h-14 rounded-xl flex items-center justify-center
                     transition-all duration-300
                     ${isLoading
                       ? 'bg-brand shadow-md shadow-brand/15'
@@ -121,7 +121,7 @@ export default function WelcomePage() {
                     }`}
                 >
                   <card.icon
-                    size={22}
+                    size={24}
                     className={`transition-colors duration-300
                       ${isLoading ? 'text-white' : 'text-brand group-hover:text-white'}`}
                     strokeWidth={1.6}
@@ -129,17 +129,17 @@ export default function WelcomePage() {
                 </div>
 
                 {/* Title */}
-                <h2 className="text-base font-semibold text-slate-800 mt-5 tracking-wide">
+                <h2 className="text-[17px] font-semibold text-slate-800 mt-6 tracking-wide">
                   {card.title}
                 </h2>
 
                 {/* Description */}
-                <p className="text-[11px] text-slate-400 mt-1.5 tracking-wider leading-relaxed">
+                <p className="text-[12px] text-slate-400 mt-2 tracking-wider leading-relaxed">
                   {card.desc}
                 </p>
 
                 {/* CTA */}
-                <div className="mt-5">
+                <div className="mt-6">
                   <AnimatePresence mode="wait">
                     {isLoading ? (
                       <motion.span
@@ -178,7 +178,7 @@ export default function WelcomePage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.6 }}
-        className="mt-14 text-[10px] text-slate-300 tracking-wider"
+        className="mt-12 text-[10px] text-slate-300 tracking-wider"
       >
         职引 JobPilot v1.0
       </motion.p>
